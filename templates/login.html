@@ -1,0 +1,222 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SocietyFix</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            color: #1e293b;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            padding: 36px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(37, 99, 235, 0.12);
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 17px;
+            background: #2563eb;
+            color: white;
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin: 0;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            margin: 10px 0 25px;
+            text-align: center;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin: 17px 0 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px #dbeafe;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            margin: 12px 0;
+            padding: 11px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .forgot-password {
+            margin-top: 13px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 23px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        a {
+            color: #2563eb;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .hint {
+            margin-top: 22px;
+            color: #64748b;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 26px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+
+        <div class="logo">S</div>
+
+        <h1>Welcome Back!</h1>
+
+        <p class="subtitle">
+            Login to your SocietyFix account and manage your society complaints.
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="message {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <label for="email">Email Address</label>
+            <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your registered email"
+                autocomplete="email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">Login to SocietyFix</button>
+
+        </form>
+
+        <!-- Forgot Password Feature -->
+        <p class="forgot-password">
+            <a href="{{ url_for('forgot_password') }}">
+                Forgot Password?
+            </a>
+        </p>
+
+        <p class="footer">
+            Don't have an account?
+            <a href="{{ url_for('register') }}">Create Account</a>
+        </p>
+
+        <p class="hint">
+            Your login session can remain active between visits.
+            Always log out when using a shared computer.
+        </p>
+
+    </main>
+</body>
+</html>
+```

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocietyFix | Smart Society Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #f4f7fc;
+            color: #1e293b;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: white;
+            box-shadow: 0 2px 12px #0000000a;
+            gap: 15px;
+        }
+
+        .logo {
+            color: #2563eb;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .welcome-text {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover { background: #1d4ed8; }
+
+        /* Notifications button */
+        .notification-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 14px;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .notification-btn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+        }
+
+        .notification-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 21px;
+            height: 21px;
+            padding: 0 5px;
+            border-radius: 50px;
+            background: #dc2626;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .hero {
+            padding: 85px 8%;
+            background: linear-gradient(120deg, #eff6ff, #dbeafe);
+        }
+
+        .hero-content { max-width: 680px; }
+
+        .tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 9px 15px;
+            border-radius: 25px;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 5vw, 54px);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        h1 strong { color: #2563eb; }
+
+        .hero p {
+            color: #64748b;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 14px 23px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 55px 8%;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+            text-align: left;
+        }
+
+        .card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border-radius: 15px;
+            height: 100%;
+        }
+
+        .card {
+            background: white;
+            padding: 27px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #1e293b0a;
+            border: 1px solid #e8edf5;
+            height: 100%;
+            transition: transform 0.2s, box-shadow 0.2s,
+                        border-color 0.2s;
+        }
+
+        .card-link:hover .card {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px #1e293b14;
+            border-color: #93c5fd;
+        }
+
+        .card .icon {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .card-action {
+            display: inline-block;
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 18px;
+        }
+
+        .complaint-section {
+            padding: 60px 8%;
+            background: #eff6ff;
+            scroll-margin-top: 20px;
+        }
+
+        .complaint-container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 28px #1e293b0c;
+        }
+
+        .complaint-container h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .complaint-container .subtitle { margin-bottom: 25px; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .form-group.full-width { grid-column: 1 / -1; }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: #fff;
+            color: #1e293b;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px #2563eb18;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-note {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 14px;
+            line-height: 1.6;
+        }
+
+        .admin-shortcut {
+            text-align: center;
+            padding: 25px 8% 45px;
+        }
+
+        .admin-shortcut p {
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .admin-button {
+            display: inline-block;
+            padding: 12px 20px;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+            background: white;
+        }
+
+        .admin-button:hover { background: #eff6ff; }
+
+        footer {
+            text-align: center;
+            padding: 23px;
+            color: #64748b;
+            background: white;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 18px 5%;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .logo { font-size: 23px; }
+
+            .nav-user {
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .welcome-text { font-size: 12px; }
+
+            .logout-btn { padding: 8px 10px; }
+
+            .notification-btn {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .hero { padding: 60px 6%; }
+
+            .section { padding: 45px 6%; }
+
+            .complaint-section { padding: 45px 5%; }
+
+            .complaint-container { padding: 24px 18px; }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group.full-width { grid-column: auto; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">SocietyFix.</div>
+
+        <div class="nav-user">
+            <span class="welcome-text">
+                Welcome, {{ session.get('user_name', 'Resident') }}!
+            </span>
+
+            <a href="{{ url_for('notifications') }}" class="notification-btn">
+                🔔 Notifications
+
+                {% if unread_notifications > 0 %}
+                    <span class="notification-count">
+                        {{ unread_notifications }}
+                    </span>
+                {% endif %}
+            </a>
+
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="tag">SMART APARTMENT MANAGEMENT</div>
+
+            <h1>Your Society,<br>
+                <strong>Better Every Day.</strong>
+            </h1>
+
+            <p>
+                Report apartment issues, track complaint progress,
+                and help your society management team resolve problems
+                faster — all in one simple platform.
+            </p>
+
+            <a class="btn" href="#features">Explore Features &rarr;</a>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <h2>Everything in One Place</h2>
+        <p class="subtitle">Choose a service below to continue.</p>
+
+        <div class="cards">
+            <a class="card-link" href="#submit-complaint">
+                <div class="card">
+                    <div class="icon">📝</div>
+                    <h3>Easy Complaints</h3>
+                    <p>
+                        Submit maintenance complaints with a category,
+                        location, and description in a few simple steps.
+                    </p>
+                    <span class="card-action">Submit a Complaint →</span>
+                </div>
+            </a>
+
+            <a class="card-link" href="/track">
+                <div class="card">
+                    <div class="icon">📊</div>
+                    <h3>Track Progress</h3>
+                    <p>
+                        Look up your submitted complaints and check
+                        their current status.
+                    </p>
+                    <span class="card-action">Track My Complaint →</span>
+                </div>
+            </a>
+
+            <a class="card-link" href="/admin">
+                <div class="card">
+                    <div class="icon">🛠️</div>
+                    <h3>Admin Dashboard</h3>
+                    <p>
+                        Manage resident complaints, prioritize issues,
+                        and update their resolution status.
+                    </p>
+                    <span class="card-action">Open Dashboard →</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="complaint-section" id="submit-complaint">
+        <div class="complaint-container">
+            <h2>Submit a Complaint</h2>
+
+            <p class="subtitle">
+                Tell us about the issue in your society.
+                Fields marked with * are required.
+            </p>
+
+            <form action="{{ url_for('submit_complaint') }}" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="resident">Resident Name *</label>
+                        <input
+                            type="text"
+                            id="resident"
+                            name="resident"
+                            value="{{ session.get('user_name', '') }}"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="flat">Flat / Apartment Number *</label>
+                        <input
+                            type="text"
+                            id="flat"
+                            name="flat"
+                            value="{{ session.get('user_flat', '') }}"
+                            placeholder="e.g. A-101"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Complaint Category *</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select a category</option>
+                            <option value="Water Supply">Water Supply</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Lift Maintenance">Lift Maintenance</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="Security">Security</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority *</label>
+                        <select id="priority" name="priority" required>
+                            <option value="">Select priority</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Describe the Issue *</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            placeholder="Explain the problem and where it is happening..."
+                            required
+                        ></textarea>
+                    </div>
+                </div>
+
+                <button class="btn" type="submit">
+                    Submit Complaint →
+                </button>
+
+                <p class="form-note">
+                    Your complaint will be saved and its initial status
+                    will be Pending.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <section class="admin-shortcut">
+        <p>Are you managing society complaints?</p>
+        <a class="admin-button" href="/admin">
+            Go to Admin Dashboard →
+        </a>
+    </section>
+
+    <footer>
+        &copy; 2026 SocietyFix | Apartment Complaint Management System
+    </footer>
+</body>
+</html>

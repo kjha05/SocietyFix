@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | SocietyFix</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        h1 { margin: 0 0 8px; }
+
+        .subtitle { color: #64748b; }
+
+        .count {
+            display: inline-block;
+            padding: 7px 12px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .back {
+            display: inline-block;
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+        }
+
+        .notification {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            margin-bottom: 14px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px #00000005;
+        }
+
+        .notification.unread {
+            border-left: 5px solid #2563eb;
+            background: #f8fbff;
+        }
+
+        .notification h3 {
+            margin: 0 0 9px;
+            font-size: 17px;
+        }
+
+        .notification p {
+            margin: 0 0 10px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .date {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 9px;
+            border-radius: 6px;
+            background: #e2e8f0;
+            color: #334155;
+            font-size: 12px;
+        }
+
+        .read-button {
+            flex-shrink: 0;
+            border: none;
+            border-radius: 7px;
+            padding: 9px 12px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .read-label {
+            color: #16a34a;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .empty {
+            padding: 45px 20px;
+            background: white;
+            border-radius: 14px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        @media (max-width: 520px) {
+            body { padding: 15px; }
+            .notification { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <div class="header">
+            <div>
+                <h1>🔔 Notifications</h1>
+                <p class="subtitle">
+                    Stay updated about your society complaints.
+                </p>
+                <span class="count">
+                    {{ unread_count }} unread
+                </span>
+            </div>
+
+            <a class="back" href="/">← Back to Home</a>
+        </div>
+
+        {% if notifications %}
+            {% for item in notifications %}
+                <article class="notification
+                    {% if not item['is_read'] %}unread{% endif %}">
+
+                    <div>
+                        <h3>
+                            {% if not item['is_read'] %}🔵 {% endif %}
+                            {{ item['title'] }}
+                        </h3>
+
+                        <p>{{ item['message'] }}</p>
+
+                        <div class="date">
+                            {{ item['created_at'] }}
+                        </div>
+
+                        {% if item['current_status'] %}
+                            <span class="status">
+                                Current complaint status:
+                                {{ item['current_status'] }}
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {% if not item['is_read'] %}
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'mark_notification_read',
+                                    notification_id=item['id']
+                                ) }}"
+                            >
+                                <button class="read-button" type="submit">
+                                    Mark as Read
+                                </button>
+                            </form>
+                        {% else %}
+                            <span class="read-label">✓ Read</span>
+                        {% endif %}
+                    </div>
+
+                </article>
+            {% endfor %}
+        {% else %}
+            <div class="empty">
+                <h2>No notifications yet</h2>
+                <p>
+                    When you submit a complaint or its status changes,
+                    your notifications will appear here.
+                </p>
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>

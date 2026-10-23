@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint | SocietyFix</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: white;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px #0000000a;
+        }
+
+        header a {
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px #0000000a;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 29px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #bfdbfe;
+            border-color: #2563eb;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .form-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/">SocietyFix.</a>
+    </header>
+
+    <main class="container">
+        <a class="back-link" href="/">← Back to Home</a>
+
+        <div class="form-card">
+            <h1>Submit a Complaint</h1>
+
+            <p class="subtitle">
+                Tell us about the issue in your society.
+                Our management team can review your complaint.
+            </p>
+
+            <form action="/submit-complaint" method="POST">
+                <label for="resident">Resident Name</label>
+                <input id="resident" name="resident" type="text"
+                       placeholder="Enter your full name" required>
+
+                <label for="flat">Flat / Apartment Number</label>
+                <input id="flat" name="flat" type="text"
+                       placeholder="e.g. A-204" required>
+
+                <label for="category">Complaint Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option>Water Supply</option>
+                    <option>Electricity</option>
+                    <option>Lift Maintenance</option>
+                    <option>Cleaning</option>
+                    <option>Security</option>
+                    <option>Plumbing</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority" required>
+                    <option value="">Select priority</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select>
+
+                <label for="description">Describe the Issue</label>
+                <textarea id="description" name="description"
+                          placeholder="Explain the problem and its location..."
+                          required></textarea>
+
+                <button type="submit">Submit Complaint →</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
